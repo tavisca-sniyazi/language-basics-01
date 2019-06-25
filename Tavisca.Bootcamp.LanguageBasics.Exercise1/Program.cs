@@ -2,7 +2,7 @@
 
 namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
 {
-    class Program
+    class Program : FixMultiplication
     {
         static void Main(string[] args)
         {
@@ -13,23 +13,29 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
             Test("2*12?=247", -1);
             Console.ReadKey(true);
         }
-
+    
+       
         private static void Test(string args, int expected)
         {
             var result = FindDigit(args).Equals(expected) ? "PASS" : "FAIL";
             Console.WriteLine($"{args} : {result}");
         }
-
+        }
+    public class FixMultiplication
+    {
         public static int FindDigit(string equation)
         {
             // Add your code here.
            
             string[] digits = equation.Split(new char[] { '*','=' });
 
+            if (digits[0] == null || digits[1] == null || digits[2] == null)
+                return -1;
+            //for first digit
             if(digits[0].Contains('?'))
             {
-                int b = Int32.Parse(digits[1]);
-                int c = Int32.Parse(digits[2]);
+                bool ifsucess1 = Int32.TryParse(digits[1], out int b);
+                bool ifsucess2 = Int32.TryParse(digits[2], out int c);
 
                 if(c%b!=0)
                 {
@@ -37,20 +43,20 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
                 }
 
                 int a = c / b;
-                string x = a.ToString();
+                string temp_a = a.ToString();
                 int index = 0;
                 int same = 0;
                 string A = digits[0];
 
-                if(x.Length==A.Length)
+                if(temp_a.Length==A.Length)
                 {
-                    for(int i=0;i<x.Length;i++ )
+                    for(int i=0;i<temp_a.Length;i++ )
                     {
                         if(A[i]=='?')
                         {
                             index = i; continue;
                         }
-                        if(A[i]==x[i])
+                        if(A[i]==temp_a[i])
                         {
                             same = same + 1;
 
@@ -64,10 +70,10 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
                 {
                     return (-1);
                 }
-                if(same==x.Length-1)
+                if(same==temp_a.Length-1)
                 {
-                    string y = x[index].ToString();
-                    int z = Int32.Parse(y);
+                    string y = temp_a[index].ToString();
+                    bool  ifsucess3= Int32.TryParse(y, out int z);
                     return (z);
                 }
                 else
@@ -76,11 +82,12 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
                 }
             }
 
+            //for second digit
 
             if (digits[1].Contains('?'))
             {
-                int a = Int32.Parse(digits[0]);
-                int c = Int32.Parse(digits[2]);
+                bool sucess = Int32.TryParse(digits[0], out int a);
+                bool sucess1 = Int32.TryParse(digits[2], out int c);
 
                 if (c % a != 0)
                 {
@@ -88,20 +95,20 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
                 }
 
                 int b = c / a;
-                string x = b.ToString();
+                string temp_b = b.ToString();
                 int index = 0;
                 int same = 0;
-                string A = digits[1];
+                string B = digits[1];
 
-                if (x.Length == A.Length)
+                if (temp_b.Length == B.Length)
                 {
-                    for (int i = 0; i < x.Length; i++)
+                    for (int i = 0; i < temp_b.Length; i++)
                     {
-                        if (A[i] == '?')
+                        if (B[i] == '?')
                         {
                             index = i; continue;
                         }
-                        if (A[i] == x[i])
+                        if (B[i] == temp_b[i])
                         {
                             same = same + 1;
 
@@ -115,10 +122,10 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
                 {
                     return (-1);
                 }
-                if (same == x.Length - 1)
+                if (same == temp_b.Length - 1)
                 {
-                    string y = x[index].ToString();
-                    int z = Int32.Parse(y);
+                    string y = temp_b[index].ToString();
+                    bool sucess2 = Int32.TryParse(y, out int z);
                     return (z);
                 }
                 else
@@ -126,27 +133,28 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
                     return (-1);
                 }
             }
+            //for third digit
 
             if (digits[2].Contains('?'))
             {
-                int a = Int32.Parse(digits[0]);
-                int b = Int32.Parse(digits[1]);
+                bool sucess = Int32.TryParse(digits[0],out int a);
+                bool sucess1 = Int32.TryParse(digits[1], out int b);
 
                 int c = a * b;
-                string x = c.ToString();
+                string temp_c = c.ToString();
                 int index = 0;
                 int same = 0;
-                string A = digits[2];
+                string C = digits[2];
 
-                if (x.Length == A.Length)
+                if (temp_c.Length == C.Length)
                 {
-                    for (int i = 0; i < x.Length; i++)
+                    for (int i = 0; i < temp_c.Length; i++)
                     {
-                        if (A[i] == '?')
+                        if (C[i] == '?')
                         {
                             index = i; continue;
                         }
-                        if (A[i] == x[i])
+                        if (C[i] == temp_c[i])
                         {
                             same = same + 1;
 
@@ -160,10 +168,10 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
                 {
                     return (-1);
                 }
-                if (same == x.Length - 1)
+                if (same == temp_c.Length - 1)
                 {
-                    string y = x[index].ToString();
-                    int z = Int32.Parse(y);
+                    string y = temp_c[index].ToString();
+                    bool sucess2 = Int32.TryParse(y,out int z);
                     return (z);
                 }
                 else
@@ -175,3 +183,4 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
         }
     }
 }
+
